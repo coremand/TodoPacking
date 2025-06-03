@@ -1,4 +1,12 @@
-export function Item({ item }) {
+export function Item({ item, deleteItems, toggleItems }) {
+	const handleDelete = () => {
+		deleteItems(item.id);
+	};
+
+	const handleClick = () => {
+		toggleItems(item.id);
+	};
+
 	return (
 		<li>
 			<span
@@ -8,9 +16,16 @@ export function Item({ item }) {
 						: {}
 				}
 			>
-				{item.packed ? "✅" : ""} {item.quantity} {item.description}
+				{item.packed ? (
+					"✅"
+				) : (
+					<input type='checkbox' value={item.packed} onClick={handleClick} />
+				)}
+				{item.quantity} {item.description}
 			</span>
-			<button className='btn'>❌</button>
+			<button className='btn' onClick={handleDelete}>
+				❌
+			</button>
 		</li>
 	);
 }
